@@ -36,8 +36,8 @@ jobs:
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
-          - name: Deploy to GitHub Pages
-      - uses: JamesIves/github-pages-deploy-action@4.1.4
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
           folder: build/WebGL
