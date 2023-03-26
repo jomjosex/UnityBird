@@ -36,18 +36,23 @@ jobs:
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
-      - name: Deploy WebGL build to GitHub Pages
-        if: ${{ matrix.targetPlatform == 'WebGL' }}
-        needs: buildForAllSupportedPlatforms
+          
+  deployWebGL:
+    name: Deploy WebGL build to GitHub Pages
+    needs: buildForAllSupportedPlatforms
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
         uses: actions/checkout@v2
-        steps:
-          - name: Download WebGL build artifact
-            uses: actions/download-artifact@v2
-            with:
-              name: Build-WebGL
-              path: build/WebGL
-          - name: Deploy to GitHub Pages
-            uses: JamesIves/github-pages-deploy-action@4.1.4
-            with:
-              branch: gh-pages
-              folder: build/WebGL
+
+      - name: Download WebGL build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Build-WebGL
+          path: Build/WebGL
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: Build/WebGL
